@@ -1,9 +1,10 @@
 import React,{Component} from 'react';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Aux/Aux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
+import AuthContext from '../../context/auth-context';
 
 const INGREDIENT_PRICES={
     salad:0.5,
@@ -100,16 +101,15 @@ class BurgerBuilder extends Component{
                  </Modal>
 
                  <Burger ingredients={this.state.ingredients}/>
-
+                 <AuthContext.Provider value={{removed:this.removeIngredintHandle}}>
                  <BuildControls 
-                 ingredientRemoved={this.removeIngredintHandle} 
                  ingredientAdded={this.addIngredientHandler}
                  disabled={disableInfo}
                  price={this.state.totalPrice}
                  purchasable={this.state.purchasable}
                  ordered={this.purchaseHndler}
-            
                  />
+                 </AuthContext.Provider>
              </Aux>
         );
     }
